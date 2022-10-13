@@ -2,10 +2,11 @@
 
 public class ArrayExamples {
 
-  // Changes the input array to be in reversed order
+  // Changes the input array to be in reversed order, FIXED
   static void reverseInPlace(int[] arr) {
+    int[] arrCopy = arr.clone();
     for(int i = 0; i < arr.length; i += 1) {
-      arr[i] = arr[arr.length - i - 1];
+      arr[i] = arrCopy[arr.length - i - 1];
     }
   }
 
@@ -14,9 +15,9 @@ public class ArrayExamples {
   static int[] reversed(int[] arr) {
     int[] newArray = new int[arr.length];
     for(int i = 0; i < arr.length; i += 1) {
-      arr[i] = newArray[arr.length - i - 1];
+      newArray[i] = arr[arr.length - i - 1];
     }
-    return arr;
+    return newArray;
   }
 
   // Averages the numbers in the array (takes the mean), but leaves out the
@@ -25,13 +26,17 @@ public class ArrayExamples {
   static double averageWithoutLowest(double[] arr) {
     if(arr.length < 2) { return 0.0; }
     double lowest = arr[0];
+    double sum = 0;
+
+    // I got rid of the condition to check the lowest number
+    // and instead just subtracted by the lowest number to 
+    // effectively remove it.
     for(double num: arr) {
       if(num < lowest) { lowest = num; }
+      sum += num;
     }
-    double sum = 0;
-    for(double num: arr) {
-      if(num != lowest) { sum += num; }
-    }
+
+    sum = sum - lowest;
     return sum / (arr.length - 1);
   }
 
